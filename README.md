@@ -52,6 +52,8 @@ The project is built upon the 5G SBA, integrating the developed NEF with existin
 
 The project is designed to be deployed using Docker Compose for a streamlined setup of the 5G Core and the NEF.
 
+TODO: generate step by step
+
 ### Prerequisites
 
 1. Docker and Docker Compose installed.
@@ -61,6 +63,8 @@ The project is designed to be deployed using Docker Compose for a streamlined se
 ## Main results
 
 This analysis compares network performance and resource consumption before and after implementing the Quality on Demand (QoD) feature in the free5gc Access and Mobility Management Function (AMF), with a target profile of 250 Mbps Uplink/Downlink.
+
+For the tests, two VMs were utilized. The **main VM**, running the free5gc services, was configured with **8vCPU and 16GB of RAM**. The **secondary VM**, used for the iperf3 server, had a configuration of **2vCPU and 2GB of RAM**. Both VMs were located in the same region (**br-se-1c**), and data transfer occurred via a public IP over a **1Gbps** connection.
 
 ### 1. Network performance analysis (throughput and latency)
 
@@ -87,11 +91,11 @@ The results unequivocally validate the successful enforcement of the QoD policy,
 
 ### 2. Resource Consumption Comparative Analysis
 
-The resource monitoring reveals that the QoD logic in the AMF is highly efficient, while the improved traffic stability post-QoD surprisingly leads to a more efficient use of the data plane components.
+The resource monitoring reveals that the QoD logic in the NEF is highly efficient, while the improved traffic stability post-QoD surprisingly leads to a more efficient use of the data plane components.
 
 | Container | Before QoD (Pico Máx. CPU) | After QoD (Pico Máx. CPU) | Análise |
 | :--- | :--- | :--- | :--- |
-| **AMF** | $\approx 3,77\%$ | $\approx 0,21\%$ | **Overhead Desprezível:** The QoD logic implementation in the AMF is efficient, introducing no significant processing load during traffic flow. |
+| **NEF** | $\approx 3,77\%$ | $\approx 0,21\%$ | **Overhead Desprezível:** The QoD logic implementation in the NEF is efficient, introducing no significant processing load during traffic flow. |
 | **UPF** | $\approx \mathbf{251,99\%}$ | $\approx \mathbf{141,79\%}$ | **Eficiência Aumentada:** The CPU peak is $\mathbf{44\%}$ lower in the QoD scenario. The UPF processes forwarded, guaranteed 250 Mbps traffic more efficiently than the congested traffic subject to packet dropping (which caused high stress). |
 | **SMF** | $\approx \mathbf{311,23\%}$ | $\approx \mathbf{172,29\%}$ | **Estabilização do CP:** The Control Plane (SMF) was significantly less stressed, indicating that the QoS guarantee reduced the need for retransmissions or processing of control signaling related to session instability. |
 
