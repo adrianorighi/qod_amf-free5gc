@@ -31,15 +31,16 @@ echo "---------------------------------"
 
 # =============================================================
 # 2. INICIAR SERVIDOR IPERF3 (UPF)
+# Desabilitado para uso de uma VM externa como servidor de tráfego
 # =============================================================
-echo "--- 2. Iniciando iperf3 Server no UPF ($UPF_CONTAINER) ---"
+# echo "--- 2. Iniciando iperf3 Server no UPF ($UPF_CONTAINER) ---"
 #docker exec -d "$UPF_CONTAINER" iperf3 -s -B 0.0.0.0 -D
 
 #if [ $? -ne 0 ]; then
 #    echo "AVISO: Falha ao iniciar iperf3 no UPF. Verifique se o iperf3 está instalado no container UPF."
 #fi
 #echo "Servidor iperf3 iniciado em segundo plano na porta $IPERF_SERVER_PORT."
-echo "---------------------------------"
+# echo "---------------------------------"
 
 # =============================================================
 # 3. INICIAR UES (UERANSIM) EM PARALELO
@@ -47,6 +48,8 @@ echo "---------------------------------"
 echo "--- 3. Iniciando UEs em Paralelo no UERANSIM ($UERANSIM_CONTAINER) ---"
 docker exec -d "$UERANSIM_CONTAINER" sh -c \
   './nr-ue -c config/uecfg.yaml &'
+docker exec -d "$UERANSIM_CONTAINER" sh -c \
+  './nr-ue -c config/uecfg-2.yaml &'
 
 if [ $? -ne 0 ]; then
     echo "ERRO: Falha ao iniciar simuladores de UE. Verifique se os arquivos de configuração existem e o executável nr-ue está acessível no container."
@@ -72,12 +75,12 @@ else
 fi
 
 # Executa o segundo script
-#if [ -f "test_ueransim.sh" ]; then
-#    echo "Executando test_ueransim.sh uesimtun1..."
-#    ./test_ueransim.sh uesimtun1
-#else
-#    echo "AVISO: Arquivo test_ueransim.sh não encontrado no diretório atual."
-#fi
+if [ -f "test_ueransim.sh" ]; then
+   echo "Executando test_ueransim.sh uesimtun1..."
+   ./test_ueransim.sh uesimtun1
+else
+   echo "AVISO: Arquivo test_ueransim.sh não encontrado no diretório atual."
+fi
 
 echo "---------------------------------"
 

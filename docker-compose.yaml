@@ -53,8 +53,6 @@ services:
     command: ./amf -c ./config/amfcfg.yaml
     expose:
       - "8000"
-    ports:
-      - "8000:8000"
     volumes:
       - ./config/amfcfg.yaml:/free5gc/config/amfcfg.yaml
       - ./cert:/free5gc/cert
@@ -246,6 +244,8 @@ services:
     command: ./nef -c ./config/nefcfg.yaml
     expose:
       - "8000"
+    ports:
+      - "8000:8000"
     volumes:
       - ./config/nefcfg.yaml:/free5gc/config/nefcfg.yaml
       - ./cert:/free5gc/cert

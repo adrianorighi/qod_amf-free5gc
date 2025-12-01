@@ -52,13 +52,21 @@ The project is built upon the 5G SBA, integrating the developed NEF with existin
 
 The project is designed to be deployed using Docker Compose for a streamlined setup of the 5G Core and the NEF.
 
-TODO: generate step by step
-
 ### Prerequisites
 
 1. Docker and Docker Compose installed.
 
 2. A Linux environment (recommended) to run the free5GC and UERANSIM components.
+
+### Step by step
+
+#### With NEF local build
+
+TODO: step by step installation and usage
+
+#### Without build
+
+TODO: step by step installation and usage
 
 ## Main results
 
@@ -95,7 +103,7 @@ The resource monitoring reveals that the QoD logic in the NEF is highly efficien
 
 | Container | Before QoD (Pico Máx. CPU) | After QoD (Pico Máx. CPU) | Análise |
 | :--- | :--- | :--- | :--- |
-| **NEF** | $\approx 3,77\%$ | $\approx 0,21\%$ | **Overhead Desprezível:** The QoD logic implementation in the NEF is efficient, introducing no significant processing load during traffic flow. |
+| **AMF** | $\approx 3,77\%$ | $\approx 0,21\%$ | **Overhead Desprezível:** The QoD logic implementation in the NEF is efficient, introducing no significant processing load during traffic flow. |
 | **UPF** | $\approx \mathbf{251,99\%}$ | $\approx \mathbf{141,79\%}$ | **Eficiência Aumentada:** The CPU peak is $\mathbf{44\%}$ lower in the QoD scenario. The UPF processes forwarded, guaranteed 250 Mbps traffic more efficiently than the congested traffic subject to packet dropping (which caused high stress). |
 | **SMF** | $\approx \mathbf{311,23\%}$ | $\approx \mathbf{172,29\%}$ | **Estabilização do CP:** The Control Plane (SMF) was significantly less stressed, indicating that the QoS guarantee reduced the need for retransmissions or processing of control signaling related to session instability. |
 
