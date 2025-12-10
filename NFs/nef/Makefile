@@ -41,3 +41,5 @@ $(BUILD_PATH)/$(CFG_PATH)/$(NF_CFG_FILE): $(CFG_PATH)/$(NF_CFG_FILE)
 clean:
 	rm -rf $(BUILD_PATH)
 
+docker:
+	docker build -t adrianorighi/nef:latest -f Dockerfile .

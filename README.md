@@ -64,9 +64,25 @@ The project is designed to be deployed using Docker Compose for a streamlined se
 
 TODO: step by step installation and usage
 
+1. Build local NEF Docker image
+
+```bash
+cd NFs/nef && make docker
+```
+
+2. Run docker compose up
+
+```bash
+docker compose up
+```
+
 #### Without build
 
-TODO: step by step installation and usage
+1. Run with docker compose
+
+```bash
+docker compose up
+```
 
 ## Main results
 

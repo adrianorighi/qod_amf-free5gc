@@ -50,6 +50,10 @@ docker exec -d "$UERANSIM_CONTAINER" sh -c \
   './nr-ue -c config/uecfg.yaml &'
 docker exec -d "$UERANSIM_CONTAINER" sh -c \
   './nr-ue -c config/uecfg-2.yaml &'
+docker exec -d "$UERANSIM_CONTAINER" sh -c \
+  './nr-ue -c config/uecfg-3.yaml &'
+docker exec -d "$UERANSIM_CONTAINER" sh -c \
+  './nr-ue -c config/uecfg-4.yaml &'
 
 if [ $? -ne 0 ]; then
     echo "ERRO: Falha ao iniciar simuladores de UE. Verifique se os arquivos de configuração existem e o executável nr-ue está acessível no container."
@@ -66,20 +70,16 @@ echo "---------------------------------"
 # =============================================================
 echo "--- 4. Executando Testes de Tráfego (test_ueransim.sh uesimtun0) ---"
 
-# Executa o primeiro script
+# Executa o script de tráfego
 if [ -f "test_ueransim.sh" ]; then
-    echo "Executando test_ueransim.sh uesimtun0..."
-    ./test_ueransim.sh uesimtun0
+  echo "Executando test_ueransim.sh para uesimtun0..3 em paralelo..."
+  ./test_ueransim.sh uesimtun0 &
+  ./test_ueransim.sh uesimtun1 &
+  ./test_ueransim.sh uesimtun2 &
+  ./test_ueransim.sh uesimtun3 &
+  wait
 else
     echo "AVISO: Arquivo test_ueransim.sh não encontrado no diretório atual."
-fi
-
-# Executa o segundo script
-if [ -f "test_ueransim.sh" ]; then
-   echo "Executando test_ueransim.sh uesimtun1..."
-   ./test_ueransim.sh uesimtun1
-else
-   echo "AVISO: Arquivo test_ueransim.sh não encontrado no diretório atual."
 fi
 
 echo "---------------------------------"

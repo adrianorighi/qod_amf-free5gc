@@ -290,6 +290,8 @@ services:
       - ./config/gnbcfg.yaml:/ueransim/config/gnbcfg.yaml
       - ./config/uecfg.yaml:/ueransim/config/uecfg.yaml
       - ./config/uecfg-2.yaml:/ueransim/config/uecfg-2.yaml
+      - ./config/uecfg-3.yaml:/ueransim/config/uecfg-3.yaml
+      - ./config/uecfg-4.yaml:/ueransim/config/uecfg-4.yaml
     cap_add:
       - NET_ADMIN
     devices:
