@@ -30,11 +30,11 @@ echo "UERANSIM Container encontrado: $UERANSIM_CONTAINER"
 echo "---------------------------------"
 
 # =============================================================
-# 2. INICIAR SERVIDOR IPERF3 (UPF)
-# Desabilitado para uso de uma VM externa como servidor de tráfego
+# 2. INSTALAR IPERF3 (UERANSIM)
 # =============================================================
-# echo "--- 2. Iniciando iperf3 Server no UPF ($UPF_CONTAINER) ---"
-#docker exec -d "$UPF_CONTAINER" iperf3 -s -B 0.0.0.0 -D
+echo "--- 2. Instalando iperf3 no UERANSIM ($UERANSIM_CONTAINER) ---"
+
+#docker exec -d "$UERANSIM_CONTAINER" sh -c apt update && apt install iperf3
 
 #if [ $? -ne 0 ]; then
 #    echo "AVISO: Falha ao iniciar iperf3 no UPF. Verifique se o iperf3 está instalado no container UPF."
@@ -73,10 +73,10 @@ echo "--- 4. Executando Testes de Tráfego (test_ueransim.sh uesimtun0) ---"
 # Executa o script de tráfego
 if [ -f "test_ueransim.sh" ]; then
   echo "Executando test_ueransim.sh para uesimtun0..3 em paralelo..."
-  ./test_ueransim.sh uesimtun0 &
-  ./test_ueransim.sh uesimtun1 &
-  ./test_ueransim.sh uesimtun2 &
-  ./test_ueransim.sh uesimtun3 &
+  ./test_ueransim.sh uesimtun0 5201 &
+  ./test_ueransim.sh uesimtun2 5202 &
+  ./test_ueransim.sh uesimtun4 5203 &
+  ./test_ueransim.sh uesimtun6 5204 &
   wait
 else
     echo "AVISO: Arquivo test_ueransim.sh não encontrado no diretório atual."

@@ -20,6 +20,7 @@ fi
 
 TUNNEL_INTERFACE=$1
 echo "Interface de Túnel Definida: $TUNNEL_INTERFACE"
+IPERF3_PORT=$2
 # ----------------------------------------------------------------------
 
 # IP ou Hostname do Servidor iperf3 de destino
@@ -77,6 +78,7 @@ docker exec $UE_CONTAINER iperf3 \
     -B "$UE_IP" \
     -t "$DURATION" \
     -b "$BANDWIDTH" \
+    -p "$IPERF3_PORT" \
     -R -u -J \
     > "$LOG_FILE" 
 
